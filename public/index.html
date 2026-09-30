@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Explore a Tableau Public dashboard with an AI-powered assistant."
+  >
+  <title>Storm Data Explorer</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">Data<span>Explorer</span></div>
+      <div class="badge">Tableau Public + AI assistant</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="eyebrow">Interactive data visualization</p>
+    <h1>Storm Data Explorer</h1>
+    <p class="intro">
+      Explore the Tableau Public dashboard and ask the AI assistant
+      questions about information visible in its public view.
+    </p>
+
+    <div class="layout">
+      <section class="card" aria-labelledby="dashboard-heading">
+        <div class="card-header">
+          <h2 id="dashboard-heading">Storms dashboard</h2>
+          <a
+            class="external-link"
+            href="https://public.tableau.com/views/RegionalSampleWorkbook/Storms"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Open in Tableau Public ↗</a>
+        </div>
+
+        <div class="dashboard-toolbar" aria-label="Dashboard controls">
+          <a
+            href="https://public.tableau.com/views/RegionalSampleWorkbook/Storms"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Make a copy on Tableau Public"
+            aria-label="Make a copy on Tableau Public"
+          >▣</a>
+
+          <a
+            href="https://public.tableau.com/views/RegionalSampleWorkbook/Storms"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Favorite on Tableau Public"
+            aria-label="Favorite on Tableau Public"
+          >☆</a>
+
+          <button
+            type="button"
+            id="share-dashboard"
+            title="Copy dashboard link"
+            aria-label="Copy dashboard link"
+          >↗</button>
+
+          <a
+            href="https://public.tableau.com/views/RegionalSampleWorkbook/Storms"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Download on Tableau Public"
+            aria-label="Download on Tableau Public"
+          >⇩</a>
+
+          <button
+            type="button"
+            id="dashboard-info"
+            title="About this dashboard"
+            aria-label="About this dashboard"
+          >ⓘ</button>
+        </div>
+
+        <iframe
+          id="tableau-dashboard"
+          title="Interactive Storms dashboard from Tableau Public"
+          src="https://public.tableau.com/views/RegionalSampleWorkbook/Storms?:showVizHome=no&amp;:embed=yes&amp;:toolbar=yes"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+
+        <p class="dashboard-note">
+          Source: Tableau Public, Regional Sample Workbook.
+          If the embedded view does not load, use the link above.
+        </p>
+      </section>
+
+      <section class="card chat-card" aria-labelledby="chat-heading">
+        <div class="card-header">
+          <h2 id="chat-heading" class="chat-title">
+            <span class="sparkle" aria-hidden="true">✦</span>
+            Ask the dashboard
+          </h2>
+          <span class="chat-status" id="status">Ready</span>
+        </div>
+
+        <div
+          class="messages"
+          id="messages"
+          role="log"
+          aria-live="polite"
+          aria-label="Chat messages"
+        >
+          <div class="message assistant">
+            Hi! Ask me about what is visible in the dashboard's public view.
+            If I cannot read a value clearly, I will say so.
+          </div>
+        </div>
+
+        <div class="chat-footer">
+          <p class="disclaimer">
+            Answers use a fresh image of the dashboard's default public view.
+            Changes you make to filters in the embedded view are not shared
+            with the chatbot.
+          </p>
+
+          <form id="chat-form">
+            <input
+              id="chat-input"
+              type="text"
+              maxlength="1000"
+              placeholder="Ask about the dashboard..."
+              aria-label="Question about the dashboard"
+              required
+            >
+            <button id="send-button" type="submit">Send</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
