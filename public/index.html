@@ -15,7 +15,23 @@
   <header>
     <div class="container topbar">
       <div class="brand">Data<span>Explorer</span></div>
-      <div class="badge">Tableau Public + AI assistant</div>
+      <div class="header-right">
+        <div class="kpi-ribbon" aria-label="Dataset summary">
+          <div class="kpi">
+            <span class="kpi-label">Monitoring</span>
+            <span class="kpi-value">Tropical Storms & Hurricanes</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label">Coverage</span>
+            <span class="kpi-value">Multi-Year Regional Sample</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label">Status</span>
+            <span class="kpi-value"><span class="status-dot" aria-hidden="true"></span> Assistant Live</span>
+          </div>
+        </div>
+        <div class="badge">Tableau Public + AI assistant</div>
+      </div>
     </div>
   </header>
 
@@ -27,8 +43,8 @@
       questions about information visible in its public view.
     </p>
 
-    <div class="layout">
-      <section class="card" aria-labelledby="dashboard-heading">
+    <div class="layout" id="layout">
+      <section class="card dashboard-card" aria-labelledby="dashboard-heading">
         <div class="card-header">
           <h2 id="dashboard-heading">Storms dashboard</h2>
           <a
@@ -77,15 +93,26 @@
             title="About this dashboard"
             aria-label="About this dashboard"
           >ⓘ</button>
+
+          <button
+            type="button"
+            id="toggle-panel"
+            class="toggle-panel-btn"
+            title="Collapse assistant panel"
+            aria-label="Collapse assistant panel"
+            aria-expanded="true"
+          >◀</button>
         </div>
 
-        <iframe
-          id="tableau-dashboard"
-          title="Interactive Storms dashboard from Tableau Public"
-          src="https://public.tableau.com/views/RegionalSampleWorkbook/Storms?:showVizHome=no&amp;:embed=yes&amp;:toolbar=yes"
-          loading="lazy"
-          allowfullscreen
-        ></iframe>
+        <div class="iframe-wrap" id="iframe-wrap">
+          <iframe
+            id="tableau-dashboard"
+            title="Interactive Storms dashboard from Tableau Public"
+            src="https://public.tableau.com/views/RegionalSampleWorkbook/Storms?:showVizHome=no&amp;:embed=yes&amp;:toolbar=yes"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
 
         <p class="dashboard-note">
           Source: Tableau Public, Regional Sample Workbook.
@@ -93,13 +120,19 @@
         </p>
       </section>
 
-      <section class="card chat-card" aria-labelledby="chat-heading">
+      <section class="card chat-card" id="chat-card" aria-labelledby="chat-heading">
         <div class="card-header">
           <h2 id="chat-heading" class="chat-title">
             <span class="sparkle" aria-hidden="true">✦</span>
             Ask the dashboard
           </h2>
           <span class="chat-status" id="status">Ready</span>
+        </div>
+
+        <div class="prompt-chips" aria-label="Suggested questions">
+          <button type="button" class="chip" data-prompt="Which region recorded the highest wind speeds?">🌪️ Peak storm intensity</button>
+          <button type="button" class="chip" data-prompt="What are the top affected regions?">📍 Top affected regions</button>
+          <button type="button" class="chip" data-prompt="Summarize storm trends by month.">📅 Seasonal frequency</button>
         </div>
 
         <div
