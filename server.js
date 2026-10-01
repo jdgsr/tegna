@@ -175,6 +175,30 @@ async function answerQuestion(question, history) {
   return answer.trim();
 }
 
+async function checkHealth() {
+  const health = {
+    checkedAt: new Date().toISOString(),
+    aiConfigured: Boolean(API_KEY) && API_KEY !== "replace_with_your_openai_api_key",
+    dashboardReachable: false,
+    status: "degraded"
+  };
+
+  try {
+    const response = await fetch(DASHBOARD_IMAGE_URL, {
+      method: "HEAD",
+      signal: AbortSignal.timeout(6_000)
+    });
+    health.dashboardReachable = response.ok;
+  } catch {
+    health.dashboardReachable = false;
+  }
+
+  health.status =
+    health.aiConfigured && health.dashboardReachable ? "ok" : "degraded";
+
+  return health;
+}
+
 const server = http.createServer(async (req, res) => {
   try {
     if (req.method === "GET" && req.url === "/styles.css") {
@@ -204,6 +228,12 @@ const server = http.createServer(async (req, res) => {
         "X-Content-Type-Options": "nosniff"
       });
       res.end(html);
+      return;
+    }
+
+    if (req.method === "GET" && req.url === "/api/health") {
+      const health = await checkHealth();
+      sendJson(res, 200, health);
       return;
     }
 
